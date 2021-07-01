@@ -51,5 +51,65 @@
 "watch-poll": "mix watch -- --watch-options-poll=1000",
 "hot": "mix watch --hot",
 "prod": "npm run production",
-"production": "mix --production"
+"production": "mix --production
+
+================================== repositorios Resposta ==========================
+    "id": 259200967,
+    "node_id": "MDEwOlJlcG9zaXRvcnkyNTkyMDA5Njc=",
+    "name": "ApiWaterCount",
+    "full_name": "tinoweb/ApiWaterCount",
+    "private": false,
+    "owner": {
+      "login": "tinoweb",
+      "id": 2362037,
+      "node_id": "MDQ6VXNlcjIzNjIwMzc=",
+      "avatar_url": "https://avatars.githubusercontent.com/u/2362037?v=4",
+      "gravatar_id": "",
+      "url": "https://api.github.com/users/tinoweb",
+      "html_url": "https://github.com/tinoweb",
+      "followers_url": "https://api.github.com/users/tinoweb/followers",
+      "following_url": "https://api.github.com/users/tinoweb/following{/other_user}",
+      "gists_url": "https://api.github.com/users/tinoweb/gists{/gist_id}",
+      "starred_url": "https://api.github.com/users/tinoweb/starred{/owner}{/repo}",
+      "subscriptions_url": "https://api.github.com/users/tinoweb/subscriptions",
+      "organizations_url": "https://api.github.com/users/tinoweb/orgs",
+      "repos_url": "https://api.github.com/users/tinoweb/repos",
+      "events_url": "https://api.github.com/users/tinoweb/events{/privacy}",
+      "received_events_url": "https://api.github.com/users/tinoweb/received_events",
+      "type": "User",
+      "site_admin": false
+    },
+
+===================================listagem dos repositorios==========================
+
+    id
+    node_id
+    name
+    full_name
+    private
+    owner
+    ownerid
+    
+
+    Id
+    Node_id
+    Nome
+    Nome completo
+    Status
+    Dono
+    Id_Dono
+
+===================================Rascunho Tabela Tag e RepoTag==========================
+
+tabela: RepoTag
+
+id: int
+id_repo: int
+id_dono_repo: int
+nome_repo: string
+dono_repo: string
+tag_repo: string
+
+Create Model 
+
 

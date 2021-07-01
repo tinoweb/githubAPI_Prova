@@ -1845,6 +1845,41 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
+function _slicedToArray(arr, i) { return _arrayWithHoles(arr) || _iterableToArrayLimit(arr, i) || _unsupportedIterableToArray(arr, i) || _nonIterableRest(); }
+
+function _nonIterableRest() { throw new TypeError("Invalid attempt to destructure non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); }
+
+function _unsupportedIterableToArray(o, minLen) { if (!o) return; if (typeof o === "string") return _arrayLikeToArray(o, minLen); var n = Object.prototype.toString.call(o).slice(8, -1); if (n === "Object" && o.constructor) n = o.constructor.name; if (n === "Map" || n === "Set") return Array.from(o); if (n === "Arguments" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return _arrayLikeToArray(o, minLen); }
+
+function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len = arr.length; for (var i = 0, arr2 = new Array(len); i < len; i++) { arr2[i] = arr[i]; } return arr2; }
+
+function _iterableToArrayLimit(arr, i) { var _i = arr == null ? null : typeof Symbol !== "undefined" && arr[Symbol.iterator] || arr["@@iterator"]; if (_i == null) return; var _arr = []; var _n = true; var _d = false; var _s, _e; try { for (_i = _i.call(arr); !(_n = (_s = _i.next()).done); _n = true) { _arr.push(_s.value); if (i && _arr.length === i) break; } } catch (err) { _d = true; _e = err; } finally { try { if (!_n && _i["return"] != null) _i["return"](); } finally { if (_d) throw _e; } } return _arr; }
+
+function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
+
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 //
 //
 //
@@ -1889,64 +1924,70 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   data: function data() {
     return {
-      employees: {},
+      repos: {},
+      showTable: {
+        staus: false
+      },
       currentUser: {},
-      token: localStorage.getItem('token')
+      token: localStorage.getItem('token'),
+      formData: {
+        inputRepo: ''
+      },
+      errors: {}
     };
   },
   methods: {
-    // getEmployees(){
-    //     axios.get('index').then((response) => {
-    //         this.employees = response.data
-    //         // console.log(response.data)
-    //     }).catch((errors) => {
-    //         console.log(errors)
-    //     });
-    // },
-    // deleteEmployee(employee_id){
-    //     Swal.fire({
-    //         title: 'Are you sure?',
-    //         text: "You won't be able to revert this!",
-    //         icon: 'warning',
-    //         showCancelButton: true,
-    //         confirmButtonColor: '#3085d6',
-    //         cancelButtonColor: '#d33',
-    //         confirmButtonText: 'Yes, delete it!'
-    //     }).then((result) => {
-    //         if (result.isConfirmed) {
-    //             axios.post('employee/delete/' + employee_id).then((response) => {
-    //                 this.getEmployees()
-    //                 console.log(response)
-    //             }).catch((errors) => {
-    //                 console.log(errors)
-    //             })
-    //             Swal.fire(
-    //                 'Deleted!',
-    //                 'Your record has been deleted.',
-    //                 'success'
-    //             )
-    //         }
-    //     })
-    // },
-    logout: function logout() {
+    pesquisarRepo: function pesquisarRepo() {
       var _this = this;
+
+      axios.post('getRepo', this.formData).then(function (response) {
+        _this.repos = response;
+        _this.formData.inputRepo = '';
+
+        if (Object.keys(_this.repos).length !== 0) {
+          _this.showTable.status = true;
+        }
+
+        for (var _i = 0, _Object$entries = Object.entries(_this.repos.data); _i < _Object$entries.length; _i++) {
+          var _Object$entries$_i = _slicedToArray(_Object$entries[_i], 2),
+              key = _Object$entries$_i[0],
+              value = _Object$entries$_i[1];
+
+          console.log("".concat(key, ": ").concat(value.name));
+
+          if (value["private"] === false) {
+            value.status = "Publico";
+          } else {
+            value.status = "Privado";
+          }
+        }
+
+        console.log(_this.repos.data);
+      })["catch"](function (error) {
+        console.log(error);
+      });
+    },
+    logout: function logout() {
+      var _this2 = this;
 
       axios.post('api/logout').then(function (response) {
         localStorage.removeItem('token');
 
-        _this.$router.push('/login');
+        _this2.$router.push('/login');
       })["catch"](function (errors) {
         console.log(errors);
       });
     }
   },
   mounted: function mounted() {
-    window.axios.defaults.headers.common['Authorization'] = "Bearer ".concat(this.token); // this.getEmployees()
-    // axios.get('api/user').then((response) => {
-    //     this.currentUser = response.data
-    // }).catch((errors) => {
-    //     console.log(errors)
-    // })
+    var _this3 = this;
+
+    window.axios.defaults.headers.common['Authorization'] = "Bearer ".concat(this.token);
+    axios.get('api/user').then(function (response) {
+      _this3.currentUser = response.data;
+    })["catch"](function (errors) {
+      console.log(errors);
+    });
   }
 });
 
@@ -42009,7 +42050,83 @@ var render = function() {
     _vm._v(" "),
     _c("br"),
     _vm._v(" "),
-    _vm._m(0)
+    _c("div", { staticClass: "row justify-content-center" }, [
+      _c(
+        "h2",
+        { staticClass: "mt-4 mb-3", attrs: { id: "fluid-containers" } },
+        [_vm._v("\n            Pequisar Repositorio\n        ")]
+      ),
+      _vm._v(" "),
+      _c("div", { staticClass: "col-md-10" }, [
+        _c("div", { staticClass: "mb-3 row" }, [
+          _c("div", { staticClass: "col-sm-10" }, [
+            _c("input", {
+              directives: [
+                {
+                  name: "model",
+                  rawName: "v-model",
+                  value: _vm.formData.inputRepo,
+                  expression: "formData.inputRepo"
+                }
+              ],
+              staticClass: "form-control",
+              attrs: { type: "text", id: "inputRepo" },
+              domProps: { value: _vm.formData.inputRepo },
+              on: {
+                input: function($event) {
+                  if ($event.target.composing) {
+                    return
+                  }
+                  _vm.$set(_vm.formData, "inputRepo", $event.target.value)
+                }
+              }
+            })
+          ]),
+          _vm._v(" "),
+          _c("div", { staticClass: "col-auto" }, [
+            _c(
+              "button",
+              {
+                staticClass: "btn btn-primary mb-3",
+                attrs: { type: "button" },
+                on: { click: _vm.pesquisarRepo }
+              },
+              [_vm._v("Pesquisar")]
+            )
+          ])
+        ]),
+        _vm._v(" "),
+        _c("hr"),
+        _vm._v(" "),
+        this.showTable.status
+          ? _c("table", { staticClass: "table" }, [
+              _vm._m(0),
+              _vm._v(" "),
+              _c(
+                "tbody",
+                _vm._l(_vm.repos.data, function(repo, index) {
+                  return _c("tr", { key: index }, [
+                    _c("td", [_vm._v(_vm._s(repo.id))]),
+                    _vm._v(" "),
+                    _c("td", [_vm._v(_vm._s(repo.node_id))]),
+                    _vm._v(" "),
+                    _c("td", [_vm._v(_vm._s(repo.name))]),
+                    _vm._v(" "),
+                    _c("td", [_vm._v(_vm._s(repo.full_name))]),
+                    _vm._v(" "),
+                    _c("td", [_vm._v(_vm._s(repo.status))]),
+                    _vm._v(" "),
+                    _c("td", [_vm._v(_vm._s(repo.owner.login))]),
+                    _vm._v(" "),
+                    _c("td", [_vm._v(_vm._s(repo.owner.id))])
+                  ])
+                }),
+                0
+              )
+            ])
+          : _vm._e()
+      ])
+    ])
   ])
 }
 var staticRenderFns = [
@@ -42017,8 +42134,22 @@ var staticRenderFns = [
     var _vm = this
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "row justify-content-center" }, [
-      _c("div", { staticClass: "col-md-10" })
+    return _c("thead", [
+      _c("tr", [
+        _c("th", [_vm._v("Id")]),
+        _vm._v(" "),
+        _c("th", [_vm._v("Id Node")]),
+        _vm._v(" "),
+        _c("th", [_vm._v("Nome Repo")]),
+        _vm._v(" "),
+        _c("th", [_vm._v("Nome Repo completo")]),
+        _vm._v(" "),
+        _c("th", [_vm._v("Repo Status")]),
+        _vm._v(" "),
+        _c("th", [_vm._v("Nome Dono")]),
+        _vm._v(" "),
+        _c("th", [_vm._v("Id Dono")])
+      ])
     ])
   }
 ]

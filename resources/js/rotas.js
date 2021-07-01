@@ -2,6 +2,7 @@ import Welcome from './components/WelcomeComponent.vue'
 import Login from './components/auth/Login.vue'
 import Register from './components/auth/Register.vue'
 import CreateTags from './components/CreateTagsComponent.vue'
+import SetTags from './components/SetTagsComponent.vue'
 // import Edit from './components/EditComponent.vue'
 export default {
     mode: 'history',
@@ -30,6 +31,12 @@ export default {
             path: '/createTags',
             component: CreateTags,
             name: 'createtags',
+            meta: {requiresAuth: false}
+        },
+        {
+            path: '/setTags',
+            component: SetTags,
+            name: 'settags',
             meta: {requiresAuth: false}
         },
         // {

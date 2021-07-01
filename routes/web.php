@@ -18,4 +18,4 @@ Route::get('/', function () {
 });
 Route::post('getRepo', 'App\Http\Controllers\GitserviceController@index');
 Route::post('createTag', 'App\Http\Controllers\GitserviceController@createTag');
-
+Route::get('getTags', 'App\Http\Controllers\GitserviceController@getTags');

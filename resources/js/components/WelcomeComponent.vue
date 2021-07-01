@@ -6,6 +6,8 @@
                 <p class="text-center"> {{currentUser.email}}</p>
                 <button class="btn btn-danger btn-sm" @click="logout">sair</button>
                 <router-link class="btn btn-primary btn-sm float-right" to="/createTags">Criar Tag</router-link>
+                <router-link class="btn btn-primary btn-sm float-right" to="/setTags">settags</router-link>
+                
             </div>
         </div>
         <br>

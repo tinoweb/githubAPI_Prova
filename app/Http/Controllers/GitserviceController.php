@@ -28,4 +28,9 @@ class GitserviceController extends Controller
         return response()->json($tag);
         // dd($request);
     }
+
+    public function getTags(){
+        $tags = AppTag::orderBy('id', 'desc')->get();
+        return response($tags);
+    }
 }

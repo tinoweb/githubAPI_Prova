@@ -1,7 +1,7 @@
 import Welcome from './components/WelcomeComponent.vue'
 import Login from './components/auth/Login.vue'
 import Register from './components/auth/Register.vue'
-// import Create from './components/CreateComponent.vue'
+import CreateTags from './components/CreateTagsComponent.vue'
 // import Edit from './components/EditComponent.vue'
 export default {
     mode: 'history',
@@ -26,11 +26,12 @@ export default {
             name: 'register',
             meta: {guest: true}
         },
-        // {
-        //     path: '/create',
-        //     component: Create,
-        //     meta: {requiresAuth: true}
-        // },
+        {
+            path: '/createTags',
+            component: CreateTags,
+            name: 'createtags',
+            meta: {requiresAuth: false}
+        },
         // {
         //     name: 'edit',
         //     path: '/edit/:id',

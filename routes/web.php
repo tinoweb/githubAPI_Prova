@@ -17,3 +17,5 @@ Route::get('/', function () {
     return view('welcome');
 });
 Route::post('getRepo', 'App\Http\Controllers\GitserviceController@index');
+Route::post('createTag', 'App\Http\Controllers\GitserviceController@createTag');
+

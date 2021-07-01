@@ -4,8 +4,8 @@
             <div class="col-md-10">
                 <h5 class="text-center">Bem vindo ao GithubApp Tag App</h5>
                 <p class="text-center"> {{currentUser.email}}</p>
-                <button class="btn btn-danger" @click="logout">sair</button>
-                <router-link class="btn btn-primary float-right" to="/create">Create</router-link>
+                <button class="btn btn-danger btn-sm" @click="logout">sair</button>
+                <router-link class="btn btn-primary btn-sm float-right" to="/createTags">Criar Tag</router-link>
             </div>
         </div>
         <br>

@@ -2049,7 +2049,9 @@ __webpack_require__.r(__webpack_exports__);
         if (response.data.msg !== 'ok') {
           console.log(response);
 
-          _this.$toaster.error(response.data.msg, {
+          _this.$router.push('/');
+
+          _this.$toaster.info(response.data.msg, {
             timeOut: 5000
           });
         } else {

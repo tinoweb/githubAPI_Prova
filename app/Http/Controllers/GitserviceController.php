@@ -52,7 +52,10 @@ class GitserviceController extends Controller
             $hash = $resposta[0]['object']['sha'];
             $urlPost = "https://api.github.com/repos/".$owner."/".$repoName."/git/tags";
 
-            $responsePost = Http::withBasicAuth('tino477@gmail.com', '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')->post($urlPost, [
+            $usernameLogin = env("LOGINGIT");
+            $token = env("TOKENGIT");
+
+            $responsePost = Http::withBasicAuth($usernameLogin, $token)->post($urlPost, [
                 'tag' => $tagName,
                 'message' => $request->name,
                 'object' => $hash,

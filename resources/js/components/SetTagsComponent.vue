@@ -65,7 +65,8 @@
                     console.log('criado com sucesso!')
                     if (response.data.msg !== 'ok') {
                         console.log(response)
-                        this.$toaster.error(response.data.msg,{timeOut: 5000})
+                        this.$router.push('/')
+                        this.$toaster.info(response.data.msg,{timeOut: 5000})
                     }else{
                         this.$toaster.success('Tag Atribuida com sucesso.',{timeOut: 5000})
                         this.$router.push('/')

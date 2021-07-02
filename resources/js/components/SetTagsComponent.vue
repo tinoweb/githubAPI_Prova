@@ -23,7 +23,7 @@
                         </div>
                         
                         <div class="form-group">
-                            {{formData.tag}}
+                            <!-- {{formData.tag}} -->
                             <button @click.prevent="create" class="btn btn-primary">Atribuir Tag</button>
                         </div>
                     </div>
@@ -63,8 +63,9 @@
             create() {
                 axios.post('setTag', this.formData).then((response) => {
                     console.log('criado com sucesso!')
-                    if (response.data.msg === 'empty') {
-                        this.$toaster.error('Repositorio Vazio tente novamente.',{timeOut: 5000})
+                    if (response.data.msg !== 'ok') {
+                        console.log(response)
+                        this.$toaster.error(response.data.msg,{timeOut: 5000})
                     }else{
                         this.$toaster.success('Tag Atribuida com sucesso.',{timeOut: 5000})
                         this.$router.push('/')

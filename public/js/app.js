@@ -2046,8 +2046,10 @@ __webpack_require__.r(__webpack_exports__);
       axios.post('setTag', this.formData).then(function (response) {
         console.log('criado com sucesso!');
 
-        if (response.data.msg === 'empty') {
-          _this.$toaster.error('Repositorio Vazio tente novamente.', {
+        if (response.data.msg !== 'ok') {
+          console.log(response);
+
+          _this.$toaster.error(response.data.msg, {
             timeOut: 5000
           });
         } else {
@@ -42796,11 +42798,6 @@ var render = function() {
             ]),
             _vm._v(" "),
             _c("div", { staticClass: "form-group" }, [
-              _vm._v(
-                "\n                        " +
-                  _vm._s(_vm.formData.tag) +
-                  "\n                        "
-              ),
               _c(
                 "button",
                 {

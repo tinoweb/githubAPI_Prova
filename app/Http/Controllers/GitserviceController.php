@@ -45,8 +45,8 @@ class GitserviceController extends Controller
         $response = Http::get($url);
         $resposta = json_decode($response->body(), true);
 
-        if ( isset($resposta['message']) && $resposta['message'] == "Git Repository is empty." ) {
-            return response()->json(['msg' => 'empty']);
+        if ( isset($resposta['message']) && $resposta['message'] != "ok" ) {
+            return response()->json(['msg' => $resposta['message']]);
         }else{
             // dd($resposta[0]['object']['sha']);
             $hash = $resposta[0]['object']['sha'];
@@ -59,7 +59,7 @@ class GitserviceController extends Controller
                 'type' => 'commit',
             ]);
             $respostaPost = json_decode($responsePost->body(), true);
-             
+
             if (isset($respostaPost['node_id'])) {
                 $tagRep = new Repotag();
                 $tagRep->tag_id  = $request->tag;
@@ -71,6 +71,9 @@ class GitserviceController extends Controller
                 if ($salvo) {
                     return response()->json(['msg' => 'certo']);
                 }
+            }else{
+                // dd("caiu aki");
+                return response()->json(['msg' => $responsePost['message']]);
             }
         }
     }

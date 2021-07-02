@@ -3,7 +3,7 @@ import Login from './components/auth/Login.vue'
 import Register from './components/auth/Register.vue'
 import CreateTags from './components/CreateTagsComponent.vue'
 import SetTags from './components/SetTagsComponent.vue'
-// import Edit from './components/EditComponent.vue'
+import ListAttrTags from './components/ListTagsComponent.vue'
 export default {
     mode: 'history',
     base: '/',
@@ -37,13 +37,14 @@ export default {
             path: '/setTags',
             component: SetTags,
             name: 'settags',
+            meta: {requiresAuth: false},
+            props: true,
+        },
+        {
+            name: 'listarTags',
+            path: '/listarTags',
+            component: ListAttrTags,
             meta: {requiresAuth: false}
         },
-        // {
-        //     name: 'edit',
-        //     path: '/edit/:id',
-        //     component: Edit,
-        //     meta: {requiresAuth: true}
-        // },
     ]
 }

@@ -5,8 +5,8 @@
                 <h5 class="text-center">Bem vindo ao GithubApp Tag App</h5>
                 <p class="text-center"> {{currentUser.email}}</p>
                 <button class="btn btn-danger btn-sm" @click="logout">sair</button>
-                <router-link class="btn btn-primary btn-sm float-right" to="/createTags">Criar Tag</router-link>
-                <router-link class="btn btn-primary btn-sm float-right" to="/setTags">settags</router-link>
+                <router-link class="btn btn-success btn-sm float-right " to="/listarTags">Listar Tags Atribuidas</router-link>
+                <router-link class="btn btn-primary btn-sm float-right mr-5" to="/createTags">Criar Tag</router-link>
                 
             </div>
         </div>
@@ -36,6 +36,7 @@
                 <table class="table" v-if="this.showTable.status">
                     <thead>
                         <tr>
+                            <th>acao</th>
                             <th>Id</th>
                             <th>Id Node</th>
                             <th>Nome Repo</th>
@@ -48,6 +49,9 @@
                     <tbody>
                         
                         <tr v-for="(repo, index) in repos.data" :key="index">
+                            <td>
+                                <router-link :to="{name: 'settags', params: { owner:repo.owner.login, repoName:repo.name} }" class="btn btn-primary btn-sm float-right" >Attr Tag</router-link>
+                            </td>
                             <td>{{repo.id}}</td>
                             <td>{{repo.node_id}}</td>
                             <td>{{repo.name}}</td>
@@ -89,15 +93,13 @@
                     }
 
                     for (let [key, value] of Object.entries(this.repos.data)) {
-                        console.log(`${key}: ${value.name}`);
+                        // console.log(`${key}: ${value.name}`);
                         if (value.private===false) {
                             value.status="Publico"
                         }else{
                             value.status="Privado"
                         }
                     }
-                    
-                    console.log(this.repos.data)
                 }).catch((error) => {
                     console.log(error)
                 });

@@ -43,7 +43,7 @@
         </div>
     </body>
 </html>
-=============================================================== ================================================
+=============================================================== ================================
 
 "dev": "npm run development",
 "development": "mix",
@@ -53,7 +53,7 @@
 "prod": "npm run production",
 "production": "mix --production
 
-================================== repositorios Resposta ==========================
+================================== repositorios Resposta =================================
     "id": 259200967,
     "node_id": "MDEwOlJlcG9zaXRvcnkyNTkyMDA5Njc=",
     "name": "ApiWaterCount",
@@ -99,7 +99,7 @@
     Dono
     Id_Dono
 
-===================================Rascunho Tabela Tag e RepoTag==========================
+===================================================Rascunho Tabela Tag e RepoTag===========================
 
 tabela: RepoTag
 
@@ -111,5 +111,227 @@ dono_repo: string
 tag_repo: string
 
 Create Model 
+--------------------------------------------Criando Tag GitHub---------------------------------------------
+
+POST /repos/{owner}/{repo}/git/tags
+
+-> preciso pegar a referencia do objeto com sha
+https://api.github.com/repos/tinoweb/deyvid/git/refs
+
+{
+    "sha": "ad2075db158a902c1c9bca734070be2ac9135319",
+    "type": "commit",
+    "url": "https://api.github.com/repos/tinoweb/deyvid/git/commits/ad2075db158a902c1c9bca734070be2ac9135319"
+}
+
+-> enviar o objeto para adicionar tag ao repositorio
+https://api.github.com/repos/tinoweb/deyvid/git/tags
+
+
+{
+  "tag": "v0.0.1",
+  "object": "c5f8759ffd808d4a57ea36c63960f3e2cc6fcc2b",
+  "message": "creating a tag",
+  "tagger": {
+    "name": "Ivan Zuzak",
+    "email": "izuzak@gmail.com",
+    "date": "2012-06-17T14:53:35-07:00"
+  },
+  "type": "commit"
+}
+
+-------------------------------------------------
+
+{
+    "owner": "tinoweb",
+    "repo": "deyvid",
+    "tag": "tagTeste",
+    "message": "Adicionando um tag",
+    "object": "ad2075db158a902c1c9bca734070be2ac9135319",
+    "type": "commit"
+}
+
+-------------------------------------------------
+curl \
+  -X POST \
+  -H "Accept: application/vnd.github.v3+json" \
+  https://api.github.com/repos/octocat/hello-world/git/tags \
+  -d '{"tag":"tag","message":"message","object":"object","type":"type"}'
+
+
+-------------------------------------------------
+
+curl \
+  -X POST \
+  -H "Accept: application/vnd.github.v3+json" \
+  https://api.github.com/repos/tinoweb/deyvid/releases \
+  -d '{"tag_name":"tag_name"}'
+
+------------------------------------------------- 
+
+curl \
+    --user tinoweb \
+    --header "Accept: application/vnd.github.manifold-preview" \
+    --data "tag_name=tinotagname" \
+    "https://api.github.com/repos/tinoweb/deyvid/releases"
+
+------------------------------------------------- 
+
+curl \
+    --user "tinoweb" -X POST \
+    --data '{"description":"Created via API","public":"true","files":{"file1.txt":{"content":"Demo"}}' \
+    https://api.github.com/gists
+
+
+my token
+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
+https://api.github.com/user
+
+curl -i -u tinoweb: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 https://api.github.com/user
+
+
+
+
+{
+	"tag_name": "v1.0.0", 
+	"target_commitish": "master", 
+	"name": "v1.0.0", 
+	"body": "Description of the release", 
+	"draft": false, 
+	"prerelease": false 
+}
+
+
+====================================================== javascript request =================================
+
+await octokit.request('POST /repos/{owner}/{repo}/git/tags', {
+  owner: 'octocat',
+  repo: 'hello-world',
+  tag: 'tag',
+  message: 'message',
+  object: 'object',
+  type: 'type'
+})
+
+{
+  "node_id": "MDM6VGFnOTQwYmQzMzYyNDhlZmFlMGY5ZWU1YmM3YjJkNWM5ODU4ODdiMTZhYw==",
+  "tag": "v0.0.1",
+  "sha": "940bd336248efae0f9ee5bc7b2d5c985887b16ac",
+  "url": "https://api.github.com/repos/octocat/Hello-World/git/tags/940bd336248efae0f9ee5bc7b2d5c985887b16ac",
+  "message": "initial version",
+  "tagger": {
+    "name": "Monalisa Octocat",
+    "email": "octocat@github.com",
+    "date": "2014-11-07T22:01:45Z"
+  },
+  "object": {
+    "type": "commit",
+    "sha": "c3d0be41ecbe669545ee3e94d31ed9a4bc91ee3c",
+    "url": "https://api.github.com/repos/octocat/Hello-World/git/commits/c3d0be41ecbe669545ee3e94d31ed9a4bc91ee3c"
+  },
+  "verification": {
+    "verified": false,
+    "reason": "unsigned",
+    "signature": null,
+    "payload": null
+  }
+}
+
+
+=======================================================================================================================
+
+15: {id: 217931865, node_id: "MDEwOlJlcG9zaXRvcnkyMTc5MzE4NjU=", name: "deyvid",…}
+archive_url: "https://api.github.com/repos/tinoweb/deyvid/{archive_format}{/ref}"
+archived: false
+assignees_url: "https://api.github.com/repos/tinoweb/deyvid/assignees{/user}"
+blobs_url: "https://api.github.com/repos/tinoweb/deyvid/git/blobs{/sha}"
+branches_url: "https://api.github.com/repos/tinoweb/deyvid/branches{/branch}"
+clone_url: "https://github.com/tinoweb/deyvid.git"
+collaborators_url: "https://api.github.com/repos/tinoweb/deyvid/collaborators{/collaborator}"
+comments_url: "https://api.github.com/repos/tinoweb/deyvid/comments{/number}"
+commits_url: "https://api.github.com/repos/tinoweb/deyvid/commits{/sha}"
+compare_url: "https://api.github.com/repos/tinoweb/deyvid/compare/{base}...{head}"
+contents_url: "https://api.github.com/repos/tinoweb/deyvid/contents/{+path}"
+contributors_url: "https://api.github.com/repos/tinoweb/deyvid/contributors"
+created_at: "2019-10-27T23:42:56Z"
+default_branch: "master"
+deployments_url: "https://api.github.com/repos/tinoweb/deyvid/deployments"
+description: null
+disabled: false
+downloads_url: "https://api.github.com/repos/tinoweb/deyvid/downloads"
+events_url: "https://api.github.com/repos/tinoweb/deyvid/events"
+fork: false
+forks: 0
+forks_count: 0
+forks_url: "https://api.github.com/repos/tinoweb/deyvid/forks"
+full_name: "tinoweb/deyvid"
+git_commits_url: "https://api.github.com/repos/tinoweb/deyvid/git/commits{/sha}"
+git_refs_url: "https://api.github.com/repos/tinoweb/deyvid/git/refs{/sha}"
+git_tags_url: "https://api.github.com/repos/tinoweb/deyvid/git/tags{/sha}"
+git_url: "git://github.com/tinoweb/deyvid.git"
+has_downloads: true
+has_issues: true
+has_pages: false
+has_projects: true
+has_wiki: true
+homepage: null
+hooks_url: "https://api.github.com/repos/tinoweb/deyvid/hooks"
+html_url: "https://github.com/tinoweb/deyvid"
+id: 217931865
+issue_comment_url: "https://api.github.com/repos/tinoweb/deyvid/issues/comments{/number}"
+issue_events_url: "https://api.github.com/repos/tinoweb/deyvid/issues/events{/number}"
+issues_url: "https://api.github.com/repos/tinoweb/deyvid/issues{/number}"
+keys_url: "https://api.github.com/repos/tinoweb/deyvid/keys{/key_id}"
+labels_url: "https://api.github.com/repos/tinoweb/deyvid/labels{/name}"
+language: "HTML"
+languages_url: "https://api.github.com/repos/tinoweb/deyvid/languages"
+license: null
+merges_url: "https://api.github.com/repos/tinoweb/deyvid/merges"
+milestones_url: "https://api.github.com/repos/tinoweb/deyvid/milestones{/number}"
+mirror_url: null
+name: "deyvid"
+node_id: "MDEwOlJlcG9zaXRvcnkyMTc5MzE4NjU="
+notifications_url: "https://api.github.com/repos/tinoweb/deyvid/notifications{?since,all,participating}"
+open_issues: 0
+open_issues_count: 0
+owner: {login: "tinoweb", id: 2362037, node_id: "MDQ6VXNlcjIzNjIwMzc=",…}
+avatar_url: "https://avatars.githubusercontent.com/u/2362037?v=4"
+events_url: "https://api.github.com/users/tinoweb/events{/privacy}"
+followers_url: "https://api.github.com/users/tinoweb/followers"
+following_url: "https://api.github.com/users/tinoweb/following{/other_user}"
+gists_url: "https://api.github.com/users/tinoweb/gists{/gist_id}"
+gravatar_id: ""
+html_url: "https://github.com/tinoweb"
+id: 2362037
+login: "tinoweb"
+node_id: "MDQ6VXNlcjIzNjIwMzc="
+organizations_url: "https://api.github.com/users/tinoweb/orgs"
+received_events_url: "https://api.github.com/users/tinoweb/received_events"
+repos_url: "https://api.github.com/users/tinoweb/repos"
+site_admin: false
+starred_url: "https://api.github.com/users/tinoweb/starred{/owner}{/repo}"
+subscriptions_url: "https://api.github.com/users/tinoweb/subscriptions"
+type: "User"
+url: "https://api.github.com/users/tinoweb"
+private: false
+pulls_url: "https://api.github.com/repos/tinoweb/deyvid/pulls{/number}"
+pushed_at: "2019-10-27T23:52:14Z"
+releases_url: "https://api.github.com/repos/tinoweb/deyvid/releases{/id}"
+size: 3186
+ssh_url: "git@github.com:tinoweb/deyvid.git"
+stargazers_count: 0
+stargazers_url: "https://api.github.com/repos/tinoweb/deyvid/stargazers"
+statuses_url: "https://api.github.com/repos/tinoweb/deyvid/statuses/{sha}"
+subscribers_url: "https://api.github.com/repos/tinoweb/deyvid/subscribers"
+subscription_url: "https://api.github.com/repos/tinoweb/deyvid/subscription"
+svn_url: "https://github.com/tinoweb/deyvid"
+tags_url: "https://api.github.com/repos/tinoweb/deyvid/tags"
+teams_url: "https://api.github.com/repos/tinoweb/deyvid/teams"
+trees_url: "https://api.github.com/repos/tinoweb/deyvid/git/trees{/sha}"
+updated_at: "2019-10-27T23:52:17Z"
+url: "https://api.github.com/repos/tinoweb/deyvid"
+watchers: 0
+watchers_count: 0
+
 
 

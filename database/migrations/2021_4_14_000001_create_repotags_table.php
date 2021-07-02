@@ -15,12 +15,11 @@ class CreateRepotagsTable extends Migration
     {
         Schema::create('repotags', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->foreignId('tag_id')->constrained('tags');
-            $table->integer('idrepo');
-            $table->integer('iddonorepo');
-            $table->string('nomerepo', 100);
-            $table->string('donorepo', 100);
-            $table->string('tagrepo', 60);
+            $table->foreignId('tag_id')->constrained('tags'); // id do tag passado
+            $table->string('message'); // message passado para tag
+            $table->string('sharepo', 160); // sha do tag setado
+            $table->string('url', 200); // url do tag passado
+            $table->string('tagrepo', 60); // tag do repositorio
             $table->timestamps();
         });
     }

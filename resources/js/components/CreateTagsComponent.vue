@@ -11,6 +11,7 @@
                         <div class="form-group">
                             <label for="name">Nome</label>
                             <input type="text" class="form-control" name="name" v-model="formData.name">
+                            <p class="text-danger" v-text="errors.name"></p>
                         </div>
                         
                         <div class="form-group">
@@ -30,7 +31,8 @@
             return {
                 formData: {
                     name: '',
-                }
+                },
+                errors: {}
             }
         },
         methods: {
@@ -41,7 +43,8 @@
                     this.formData.name = ''
                     this.$toaster.success('tag Criada com sucesso.')
                 }).catch((error) => {
-                    console.log(error)
+                    this.errors = error.response.data.errors
+                    console.log(errors)
                 });
             }
         }

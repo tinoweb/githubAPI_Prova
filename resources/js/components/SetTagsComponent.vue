@@ -15,7 +15,7 @@
 
                         <div class="form-group">
                             <label for="exampleFormControlSelect1">Selecione a Tag</label>
-                            <select class="form-control" id="exampleFormControlSelect1" >
+                            <select class="form-control" id="exampleFormControlSelect1" v-model="formData.tag">
                                 <option v-for="(tag, index) in tags.data" :key="index" v-bind:value="tag.id">
                                     {{tag.tag}}
                                 </option>
@@ -23,7 +23,8 @@
                         </div>
                         
                         <div class="form-group">
-                            <!-- <button @click.prevent="create" class="btn btn-primary">Atribuir Tag</button> -->
+                            {{formData.tag}}
+                            <button @click.prevent="create" class="btn btn-primary">Atribuir Tag</button>
                         </div>
                     </div>
                 </div>
@@ -40,20 +41,38 @@
                 formData: {
                     name: '',
                     tag: '',
+                    owner: this.owner,
+                    repoName: this.repoName
                 },
                 tags: {},
             }
         },
+
+        props: {
+            owner: {
+                type: String,
+                default: null
+            },
+            repoName:{
+                type: String,
+                default: null
+            }
+        },
+
         methods: {
             create() {
-                // axios.post('createTag', this.formData).then((response) => {
-                //     console.log('criado com sucesso!')
-                //     this.$router.push('/')
-                //     this.formData.name = ''
-                //     this.$toaster.success('tag Criada com sucesso.')
-                // }).catch((error) => {
-                //     console.log(error)
-                // });
+                axios.post('setTag', this.formData).then((response) => {
+                    console.log('criado com sucesso!')
+                    if (response.data.msg === 'empty') {
+                        this.$toaster.error('Repositorio Vazio tente novamente.',{timeOut: 5000})
+                    }else{
+                        this.$toaster.success('Tag Atribuida com sucesso.',{timeOut: 5000})
+                        this.$router.push('/')
+                        this.formData.name = ''
+                    }
+                }).catch((error) => {
+                    console.log(error)
+                });
             }
         },
 
@@ -61,8 +80,9 @@
             window.axios.defaults.headers.common['Authorization'] = `Bearer ${this.token}`
             axios.get('getTags').then((response) => {
                 this.tags = response
+                console.log(this.owner)
+                console.log(this.repoName)
                 console.log("listagem de todos tags")
-                console.log(this.tags.data)
             }).catch((errors) => {
                 console.log(errors)
             })
